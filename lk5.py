@@ -1,45 +1,50 @@
-import math
-a = [i for i in (input('Введите катеты.'))]
-b = [i for i in (input('Введите катеты.'))]
-c = sqrt(a**2 + b**2)
-S = (a * b) / 2
-from math import sqrt
-print(c)
-3
+class InconsistentDataError(Exception):
+    def __str__(self):
+        print('Введи одинаковое кол-во катетов')
 
 
+class NonNumericError(Exception):
+    def __str__(self):
+        print('Введи цифры')
 
 
+variant = input("Выберите вариант реализации (1/2):")
+if not variant.replace(" ", "").isdigit():
+    raise NonNumericError()
 
+if int(variant) == 1:
+    string = input('Введите первую группу катетов: ')
+    if not string.replace(" ", "").isdigit():
+        raise NonNumericError()
+    k1 = string.split()
 
+    string = input('Введите вторую группу катетов: ')
+    if not string.replace(" ", "").isdigit():
+        raise NonNumericError()
+    k2 = string.split()
 
+elif int(variant) == 2:
+    string = input('Введите катеты: ')
+    if not string.replace(" ", "").isdigit():
+        raise NonNumericError()
+    k1, k2 = [], []
+    for num, val in enumerate(string.split(), start=0):
+        if num % 2 == 0:
+            k1.append(val)
+        else:
+            k2.append(val)
 
+else:
+    print("Я такой вариант не давал...")
+    exit(0)
 
+if len(k1) != len(k2):
+    raise InconsistentDataError()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+for num, val in enumerate(k1, start=0):
+    hypotenuse = (int(k1[num]) ** 2 + int(k2[num]) ** 2) ** (1 / 2)
+    square = (int(k1[num]) * int(k2[num]) / 2)
+    print(f'Треугольник {num + 1} с катетами {k1[num]} и {k2[num]} имеет площадь {square} и гипотенузу {hypotenuse}')
 
 
 
